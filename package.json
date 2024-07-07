@@ -1,0 +1,17 @@
+{
+  "name": "yarn",
+  "version": "1.0.0",
+  "description": "yemekTarifi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "rethinkdbdash": "^2.3.31"
+  }
+}
