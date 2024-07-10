@@ -8,15 +8,27 @@ var r = require('rethinkdbdash')({
             port: 28015
         }
 ]
-
 });
+
+const intialDataBase =async ()=>{
+    const tables = await r.db("test").tableList()
+    if(!tables.includes("recipe")){
+       await r.tableCreate('recipe').run()
+    }
+    
+}
+
+intialDataBase();
+
+ 
+
 
 var app=express();
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", async(req, res)=>{
-    r.db("recipes")
+    r.db("test")
         .table("recipe")
         .then((recipe)=>{
             res.statusCode=200;
@@ -38,7 +50,7 @@ app.get("/", async(req, res)=>{
 
 app.post("/", async (req, res) => {
     const newRecipe=req.body;
-    r.db("recipes")
+    r.db("test")
         .then("recipe")
         .insert(newRecipe)
         .then((recipe)=>{
@@ -59,9 +71,9 @@ app.post("/", async (req, res) => {
         });
 });
 
-app.delete("/:id", async (req, res) => {
+app.delete("/", async (req, res) => {
     const id = req.params.id;
-    r.db("recipes")
+    r.db("test")
         .table("recipe")
         .get(id)
         .delete()
@@ -83,10 +95,10 @@ app.delete("/:id", async (req, res) => {
         });
 });
 
-app.put("/:id", async(req, res) =>{
+app.put("/", async(req, res) =>{
     const id = req.params.id;
     const updateRecipe = req.body;
-    r.db("recipes")
+    r.db("test")
         .table("recipe")
         .get(id)
         .update(updateRecipe)
@@ -108,4 +120,6 @@ app.put("/:id", async(req, res) =>{
         });
 });
 
-app.listen(3000);
+app.listen(3001, ()=>{
+    console.log("3001 portu dinleniyor")
+});
