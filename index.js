@@ -1,6 +1,17 @@
 var express = require("express");
 var cors = require("cors");
 var bodyParser = require("body-parser");
+const dotenv=require("dotenv");
+const recipes=require("./routers/recipes")
+var app = express();
+app.use(cors());
+app.use(bodyParser.json());
+
+dotenv.config({
+  path:"./config/env/config.env"
+})
+const PORT = process.env.PORT;
+
 var r = require("rethinkdbdash")({
   servers: [
     {
@@ -16,130 +27,11 @@ const intialDataBase = async () => {
     await r.tableCreate("recipe").run();
   }
 };
-
 intialDataBase();
 
-var app = express();
-app.use(cors());
-app.use(bodyParser.json());
+app.use("/api/questions",recipes);
 
-app.get("/", async (req, res) => {
-  r.db("test")
-    .table("recipe")
-    .then((recipe) => {
-      res.statusCode = 200;
-      res.send({
-        message: "Success",
-        code: 200,
-        payload: recipe,
-      });
-    })
-    .catch((err) => {
-      res.statusCode = 500;
-      res.send({
-        message: err.message,
-        code: 500,
-        payload: err,
-      });
-    });
-});
 
-app.get("/:id", async (req, res) => {
-  r.db("test")
-    .table("recipe")
-    .get(req.params.id)
-    .then((recipe) => {
-      res.statusCode = 200;
-      res.send({
-        message: "Success",
-        code: 200,
-        payload: recipe,
-      });
-    })
-    .catch((err) => {
-      res.statusCode = 500;
-      res.send({
-        message: err.message,
-        code: 500,
-        payload: err,
-      });
-    });
-});
-
-app.post("/", async (req, res) => {
-  const newRecipe = req.body;
-  console.log(req.body);
-  r.db("test")
-    .table("recipe")
-    .insert(newRecipe)
-    .then((recipe) => {
-      res.statusCode = 201;
-      res.send({
-        message: "eklendi",
-        code: 201,
-        payload: recipe,
-      });
-    })
-    .catch((err) => {
-      res.statusCode = 500;
-      res.send({
-        message: err.message,
-        code: 500,
-        payload: err,
-      });
-    });
-});
-
-app.delete("/:id", async (req, res) => {
-  const id = req.params.id;
-  r.db("test")
-    .table("recipe")
-    .get(id)
-    .delete()
-    .then((recipe) => {
-      res.statusCode = 200;
-      res.send({
-        message: "silindi",
-        code: 200,
-        payload: recipe,
-      });
-    })
-    .catch((err) => {
-      res.statusCode = 500;
-      res.send({
-        message: err.message,
-        code: 500,
-        payload: err,
-      });
-    });
-});
-
-app.put("/:id", async (req, res) => {
-  const id = req.params.id;
-  const updateRecipe = req.body;
-  console.log(updateRecipe);
-  r.db("test")
-    .table("recipe")
-    .get(id)
-    .update(updateRecipe)
-    .then((recipe) => {
-      res.statusCode = 200;
-      res.send({
-        message: "güncellendi",
-        code: 200,
-        payload: recipe,
-      });
-    })
-    .catch((err) => {
-      res.statusCode = 500;
-      res.send({
-        message: err.message,
-        code: 500,
-        payload: err,
-      });
-    });
-});
-
-app.listen(3001, () => {
-  console.log("3001 portu dinleniyor");
+app.listen(PORT, () => {
+  console.log(`App started on ${PORT} : ${process.env.NODE_ENV}`);
 });
