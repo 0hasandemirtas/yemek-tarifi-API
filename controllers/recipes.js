@@ -1,13 +1,7 @@
-var r = require("rethinkdbdash")({
-  servers: [
-    {
-      host: "localhost",
-      port: 28015,
-    },
-  ],
-});
+const {r} = require("../database");
+
 const getAllRecipes =  (req,res)=> {
-    r.db("test")
+    r.db("recipes")
       .table("recipe")
       .then((recipe) => {
         res.statusCode = 200;
@@ -28,7 +22,7 @@ const getAllRecipes =  (req,res)=> {
 }
 
 const getByIdRecipes = (req,res) =>{
-  r.db("test")
+  r.db("recipes")
       .table("recipe")
       .get(req.params.id)
       .then((recipe) => {
@@ -52,7 +46,7 @@ const getByIdRecipes = (req,res) =>{
 const postAllRecipes = (req,res)=>{
   const newRecipe = req.body;
     console.log(req.body);
-    r.db("test")
+    r.db("recipes")
       .table("recipe")
       .insert(newRecipe)
       .then((recipe) => {
@@ -75,7 +69,7 @@ const postAllRecipes = (req,res)=>{
 
 const deleteRecipes = (req,res) => {
   const id = req.params.id;
-    r.db("test")
+    r.db("recipes")
       .table("recipe")
       .get(id)
       .delete()
@@ -101,7 +95,7 @@ const putRecipes =(req,res) =>{
   const id = req.params.id;
     const updateRecipe = req.body;
     console.log(updateRecipe);
-    r.db("test")
+    r.db("recipes")
       .table("recipe")
       .get(id)
       .update(updateRecipe)

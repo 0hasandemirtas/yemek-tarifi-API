@@ -1,0 +1,25 @@
+@BaseUrl  = http://localhost:3001
+###
+POST  {{BaseUrl}}/api/users/login
+Content-Type: application/json
+
+{
+    "userName": "zehraa",
+    "password": "123456"
+}
+###
+GET {{BaseUrl}}/api/recipes
+###
+POST  {{BaseUrl}}/api/users/
+Content-Type: application/json
+
+{
+    "userName": "zehraa",
+    "email":"asddd@gmail.com",
+    "password": "123456"
+}
+###
+
+GET {{BaseUrl}}/api/recipes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imhhc2FuIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE3MjI4NjAwOTYsImV4cCI6MTcyMjk0NjQ5Nn0.bD1SqOhiwKZZDJZzjY-qoUpJqtkU09t6I9xL9oJ6Jdc
