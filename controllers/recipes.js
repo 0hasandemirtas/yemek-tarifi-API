@@ -42,6 +42,28 @@ const getByIdRecipes = (req,res) =>{
         });
       });
 }
+const getByUserRecipes = async (req,res) =>{
+  const recipes=await r
+      .db("recipes")
+      .table("recipe")
+      .filter({"users":req.params.users})
+      .run();
+      if(!recipes.length){
+        return  res.status(202).send({
+            message: "Recipes not found",
+            code: 400,
+        })
+        
+    }
+    return(
+      res.status(200).send({
+      message:"Başarılı.",
+      code: 200,
+      payload:recipes,
+      })
+  )
+  console.log("recipes",recipes);
+}
 
 const postAllRecipes = (req,res)=>{
   const newRecipe = req.body;
@@ -118,9 +140,10 @@ const putRecipes =(req,res) =>{
 }
 
 module.exports={
-    getAllRecipes,
-    getByIdRecipes,
+    getByUserRecipes,
     postAllRecipes,
+    getByIdRecipes,
+    getAllRecipes,
     deleteRecipes,
     putRecipes,
 };

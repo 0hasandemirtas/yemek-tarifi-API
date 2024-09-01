@@ -5,13 +5,15 @@ var cors = require("cors");
 const router=express.Router();
 router.use(cors());
 router.use(bodyParser.json());
-const auth = require("../middleware/auth")
+const userAuth = require("../middleware/auth")
 
-const {getAllRecipes, getByIdRecipes, postAllRecipes, deleteRecipes, putRecipes}=require("../controllers/recipes")
+const {getAllRecipes, getByIdRecipes, postAllRecipes, deleteRecipes, putRecipes, getByUserRecipes}=require("../controllers/recipes")
 
 router.get("/",getAllRecipes);
   
 router.get("/:id",getByIdRecipes );
+
+router.get("/users/:users",userAuth,getByUserRecipes );
 
 router.post("/",postAllRecipes);
 

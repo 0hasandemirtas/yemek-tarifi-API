@@ -4,7 +4,7 @@ POST  {{BaseUrl}}/api/users/login
 Content-Type: application/json
 
 {
-    "userName": "zehraa",
+    "userName": "hasan",
     "password": "123456"
 }
 ###
@@ -22,4 +22,9 @@ Content-Type: application/json
 
 GET {{BaseUrl}}/api/recipes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imhhc2FuIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE3MjI4NjAwOTYsImV4cCI6MTcyMjk0NjQ5Nn0.bD1SqOhiwKZZDJZzjY-qoUpJqtkU09t6I9xL9oJ6Jdc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imhhc2FuIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE3MjM2NjUwNTMsImV4cCI6MTcyMzc1MTQ1M30.v_MC7Xgqd3Aci-OaaTcELpfNEs62inMewhWmyYXxilA
+
+###
+GET {{BaseUrl}}/api/recipes/users/hasan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imhhc2FuIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE3MjM2NjUwNTMsImV4cCI6MTcyMzc1MTQ1M30.v_MC7Xgqd3Aci-OaaTcELpfNEs62inMewhWmyYXxilA
